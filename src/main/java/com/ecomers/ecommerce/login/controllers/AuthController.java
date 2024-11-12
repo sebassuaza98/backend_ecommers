@@ -39,22 +39,22 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-public ResponseEntity<Object> login(@RequestParam Long userId, @RequestParam String password) {
-    try {
-        String token = authService.login(userId, password);
-        ApiResponse response = new ApiResponse(
-            HttpStatus.OK.value(),Constants.AUTH,
-            token
-        );
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    } catch (Exception e) {
-        ApiResponse errorResponse = new ApiResponse(
-            HttpStatus.BAD_REQUEST.value(),Constants.AUTH_ERR,
-            null
-        );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    public ResponseEntity<Object> login(@RequestParam Long userId, @RequestParam String password) {
+        try {
+            String token = authService.login(userId, password);
+            ApiResponse response = new ApiResponse(
+                HttpStatus.OK.value(),Constants.AUTH,
+                token
+            );
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            ApiResponse errorResponse = new ApiResponse(
+                HttpStatus.BAD_REQUEST.value(),Constants.AUTH_ERR,
+                null
+            );
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
     }
-}
 
 
     @GetMapping("/validate")

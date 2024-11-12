@@ -7,7 +7,6 @@ import com.ecomers.ecommerce.login.models.Session;
 import com.ecomers.ecommerce.login.models.Users;
 import com.ecomers.ecommerce.login.repository.SessionRepository;
 import com.ecomers.ecommerce.login.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,11 @@ import java.util.Date;
 
 @Service
 public class AuthService {
-
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private SessionRepository sessionRepository;
-
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
@@ -35,7 +32,7 @@ public class AuthService {
         Users user = userRepository.findById(userId).orElse(null);
     
         if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Credenciales incorrectas");
+            throw new RuntimeException("Incorrect credentials");
         }
     
         Algorithm algorithm = Algorithm.HMAC256(Constants.JWT_SECRET);

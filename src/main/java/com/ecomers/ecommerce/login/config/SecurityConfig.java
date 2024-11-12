@@ -30,8 +30,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/auth/register", "/auth/login").permitAll()  // Permitir registro y login sin autenticar
-                .anyRequest().authenticated()  // Resto de endpoints requieren autenticación
+                .requestMatchers("/auth/register", "/auth/login","/api/products","/api/getProducts","/api/update","/orders/create","/orders/top","/orders/reports").permitAll()
+                .anyRequest().authenticated()
             )
             .exceptionHandling()
             .authenticationEntryPoint((request, response, authException) -> 
