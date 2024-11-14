@@ -8,7 +8,7 @@ public class Constants {
     public static final String USER = "Usuario registrado"; 
     public static final String ERROR = "Error al registrar el usuario";
     public static final String AUTH = "Usuario autenticado ";
-    public static final String AUTH_ERR = "Error de autenticación ";
+    public static final String AUTH_ERR = "Error de autenticación. ";
     public static final String NOT_CREDENTIALS = "Credenciales incorrectas ";
     public static final int LIMIT = 5;
     public static final String USERNOT = "El usuario no existe ";
