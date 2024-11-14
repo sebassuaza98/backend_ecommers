@@ -21,7 +21,7 @@
 ### Clonación del Repositorio
 
 ```bash
-git clone https://github.com/sebassuaza98/backend-BtgPractal.git
+git clone https://github.com/sebassuaza98/backend_ecommers.git
 ```
 
 Una vez clonado el repositorio, abre tu IDE de preferencia, carga el proyecto y en la raíz del proyecto ejecuta el siguiente comando para construirlo:
