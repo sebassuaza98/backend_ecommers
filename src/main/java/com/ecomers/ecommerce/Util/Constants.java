@@ -11,10 +11,12 @@ public class Constants {
     public static final String AUTH_ERR = "Authentication errorr ";
     public static final String NOT_CREDENTIALS = "Incorrect credentials ";
     public static final int LIMIT = 5;
+    public static final String USERNOT = "User does not exist ";
     public static final double DESCOUNT = 0.05;
-    
-
-
+    public static final String DELETE = "User deleted successfully";
+    public static final String AUDIT_CREATE = "Product Creation";
+    public static final String AUDIT_UPDATE = "Product Update";
+    public static final String USERAUDT = "The user with this ID already exists.";
     public static final String CREATE_PRODUCT = "Successfully created product";
     public static final String ERROR_PRODUCT = "An error occurred while creating the product.";
     public static final String NOT_PRODUCT = "An error occurred searching the products.";
@@ -26,5 +28,6 @@ public class Constants {
     public static final String NOT_ORDER = "Order not found with id: ";
     public static final String EXCCESDS = "Quantity of product not available Id: ";
     public static final String ERROR_ORDER = "An error occurred while creating the order.";
+    public static final String INCORRECT = "Incorrect credentials";
 
 }

@@ -5,10 +5,9 @@ import java.util.List;
 import com.ecomers.ecommerce.moduleOrders.models.Customer;
 
 public class OrderRequestDTO {
-    private Customer customer;  // Cliente de la orden
-    private List<OrderItemDTO> orderItemDTOs;  // Lista de artículos de la orden
+    private Customer customer;
+    private List<OrderItemDTO> orderItemDTOs;  
     private boolean randomOrder;
-    // Getters y setters
     public Customer getCustomer() {
         return customer;
     }

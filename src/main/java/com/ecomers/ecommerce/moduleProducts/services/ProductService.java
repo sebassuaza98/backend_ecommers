@@ -38,5 +38,9 @@ public class ProductService {
     
         return productRepository.save(existingProduct);
     }
+    
+    public List<Product> getActiveProducts() {
+        return productRepository.findByActivoTrue();
+    }
 
 }

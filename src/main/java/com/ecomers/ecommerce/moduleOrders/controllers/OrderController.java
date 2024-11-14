@@ -1,12 +1,14 @@
 package com.ecomers.ecommerce.moduleOrders.controllers;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.ecomers.ecommerce.Util.ApiResponse;
+import com.ecomers.ecommerce.Util.Constants;
 import com.ecomers.ecommerce.moduleOrders.DTO.OrderRequestDTO;
-import com.ecomers.ecommerce.moduleOrders.models.Customer;
 import com.ecomers.ecommerce.moduleOrders.models.Order;
 import com.ecomers.ecommerce.moduleOrders.services.OrderService;
 
@@ -19,17 +21,29 @@ public class OrderController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) throws Exception {
-        boolean randomOrder = orderRequestDTO.isRandomOrder();
-
-        Order order = orderService.createOrder(orderRequestDTO.getCustomer(), orderRequestDTO.getOrderItemDTOs(), randomOrder);
-        
-        return ResponseEntity.ok(order);
+    public ResponseEntity<ApiResponse> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
+        try {
+            boolean randomOrder = orderRequestDTO.isRandomOrder();
+            Order order = orderService.createOrder(orderRequestDTO.getCustomer(), orderRequestDTO.getOrderItemDTOs(), randomOrder);
+            
+            ApiResponse response = new ApiResponse(
+                HttpStatus.CREATED.value(),   
+                Constants.CREATE_ORDER,    
+                order                        
+            );
+            return new ResponseEntity<>(response, HttpStatus.CREATED);  
+        } catch (Exception e) {
+            String errorMessage = "An error occurred while creating the order: " + e.getMessage();
+            ApiResponse errorResponse = new ApiResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(), 
+                errorMessage,                             
+                null                                      
+            );
+            
+            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);  
+        }
     }
-/*     @GetMapping("/top")
-        public List<Customer> getTopCustomers(@RequestParam int limit) {
-            return orderService.getTopCustomersByOrders(limit);
-    }*/
+    
     @GetMapping("/reports")
     public ResponseEntity<Map<String, Object>> getReports() {
         Map<String, Object> reports = orderService.reports();

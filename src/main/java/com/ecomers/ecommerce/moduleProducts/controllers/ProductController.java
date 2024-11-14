@@ -20,7 +20,6 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    
     @PostMapping("/products")
     public ResponseEntity<ApiResponse> createProduct(@RequestBody Product product) {
         try {
@@ -40,7 +39,6 @@ public class ProductController {
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @GetMapping(("/getProducts"))
     public ResponseEntity<ApiResponse> getAllProducts() {
         try {
@@ -87,6 +85,12 @@ public class ProductController {
             );
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    @GetMapping("/produtsActive")
+    public ResponseEntity<List<Product>> getActiveProducts() {
+        List<Product> activeProducts = productService.getActiveProducts();
+        return new ResponseEntity<>(activeProducts, HttpStatus.OK);
     }
 
 }

@@ -15,8 +15,6 @@ public class Customer {
 
     public Customer() {
     }
-
-    // Getters y Setters
     public Long getId() {
         return id;
     }
