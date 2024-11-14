@@ -69,7 +69,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    private Customer getOrCreateCustomer(Customer customerDTO) {
+    public Customer getOrCreateCustomer(Customer customerDTO) {
         return customerRepository.findById(customerDTO.getId())
                 .orElseGet(() -> {
                     Customer newCustomer = new Customer();
@@ -80,7 +80,7 @@ public class OrderService {
                 });
     }
 
-    private double calculateOrderTotalAmount(List<OrderItemDTO> orderItemDTOs, Order order) throws Exception {
+    public double calculateOrderTotalAmount(List<OrderItemDTO> orderItemDTOs, Order order) throws Exception {
         double totalAmount = 0.0;
 
         for (OrderItemDTO orderItemDTO : orderItemDTOs) {
@@ -107,13 +107,13 @@ public class OrderService {
         return totalAmount;
     }
 
-    private void validateProductStock(Product product, OrderItemDTO orderItemDTO) {
+    public void validateProductStock(Product product, OrderItemDTO orderItemDTO) {
         if (product.getStock() < orderItemDTO.getQuantity()) {
             throw new InsufficientStockException(Constants.EXCCESDS + orderItemDTO.getProductId());
         }
     }
 
-    private Optional<Discount> getDiscount(LocalDateTime now, boolean randomOrder) {
+    public Optional<Discount> getDiscount(LocalDateTime now, boolean randomOrder) {
         if (randomOrder) {
             return discountRepository.findByStartDateBeforeAndEndDateAfterAndRandomOrder(now, now, true);
         } else {
@@ -121,13 +121,13 @@ public class OrderService {
         }
     }
 
-    private double applyDiscount(double totalAmount, Discount discount) {
+    public double applyDiscount(double totalAmount, Discount discount) {
         double discountPercentage = discount.getDiscountPercentage();
         double discountAmount = totalAmount * (discountPercentage / 100);
         return totalAmount - discountAmount;
     }
 
-    private double applyTopCustomerDiscount(double totalAmount) {
+    public double applyTopCustomerDiscount(double totalAmount) {
         double additionalDiscountAmount = totalAmount * Constants.DESCOUNT;
         return totalAmount - additionalDiscountAmount;
     }

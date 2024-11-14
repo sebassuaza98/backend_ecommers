@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  api_service:
+    build:
+      context: .
+      dockerfile: ./src/Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - springapimysql-net
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysql:3306/ecommerce
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+      - spring.application.name=ecommerce
+      - spring.profiles.active=dev
+    volumes:
+      - .m2:/root/.m2
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecommerce
+    networks:
+      - springapimysql-net
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--host=localhost", "--user=root", "--password=root"]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+
+networks:
+  springapimysql-net:
+
+volumes:
+  mysql_data:
